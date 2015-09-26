@@ -1,2 +1,5 @@
 models/
 venv/
+data/
+*.pyc
+results.txt

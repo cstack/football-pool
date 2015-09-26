@@ -1,29 +1,12 @@
-from sklearn import svm
-from sklearn import datasets
-import pickle
-import os.path
+from strategy import strategies
+from orm import *
 
-fname = 'models/test.model'
-if not os.path.exists(os.path.dirname(fname)):
-  print "Making models/ directory"
-  os.makedirs(os.path.dirname(fname))
-
-print "Loading dataset"
-iris = datasets.load_iris()
-X, y = iris.data, iris.target
-
-if os.path.isfile(fname):
-  print "Loading existing model"
-  clf = pickle.load(open(fname))
-else:
-  print "Training new model"
-  clf = svm.SVC()
-  clf.fit(X, y)
-
-  print "Saving model"
-  pickle.dump(clf, open(fname, 'wb'))
-
-print "Predicting"
-prediction = clf.predict(X)
-
-print prediction
+games = Game.select()
+total = games.count()
+for strategy in strategies:
+  correct = 0
+  for game in games:
+    if strategy().predict(game) == game.winner():
+      correct += 1
+  print "strategy {0}".format(strategy.__name__)
+  print "{0} / {1} : {2} %".format(correct, total, round(float(correct) / total * 100, 2))
