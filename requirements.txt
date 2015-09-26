@@ -1,3 +1,11 @@
+beautifulsoup4==4.4.0
+enum34==1.0.4
+httplib2==0.9.1
+nfldb==0.2.10
+nflgame==1.2.15
 numpy==1.9.2
+peewee==2.6.3
+psycopg2==2.6.1
+pytz==2015.4
 scikit-learn==0.16.1
 scipy==0.16.0
